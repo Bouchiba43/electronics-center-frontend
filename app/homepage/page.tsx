@@ -2,9 +2,10 @@
 
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { Product } from "@/models/product";
 
 const HomePage = () => {
-  const [products, setProducts] = useState<any[]>([]);
+  const [products, setProducts] = useState<Product[]>([]);
   const [error, setError] = useState<string | null>(null); 
   const [loading, setLoading] = useState(true); // State for showing a loading indicator
 
@@ -49,9 +50,9 @@ const HomePage = () => {
           >
             <p className="font-semibold text-lg">Name: {product.name}</p>
             <p className="text-gray-600">Description: {product.description}</p>
-            <p>Price: ${product.price.toFixed(2)}</p>
-            <p>Brand: {product.brand}</p>
-            <p>Type: {product.type}</p>
+            <p>Price: ${product.price}</p>
+            <p>Brand: {product.productbrand}</p>
+            <p>Type: {product.producttype}</p>
           </div>
         ))}
       </div>
