@@ -10,6 +10,8 @@ import {
 import { Geist, Geist_Mono } from "next/font/google";
 import Header from "@/components/Header";
 import "./globals.css";
+import Footer from "@/components/Footer";
+import StoreProvider from "@/app/StoreProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -40,19 +42,22 @@ export default function RootLayout({
   }
 
   return (
-      <html lang="en">
-        <head>
-          <link rel="stylesheet" href="/globals.css" />
-        </head>
-        <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-        >
+    <html lang="en">
+      <head>
+        <link rel="stylesheet" href="/globals.css" />
+      </head>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      >
+        <StoreProvider>
           <ThemeProvider theme={theme}>
             <CssBaseline />
             <Header darkMode={darkMode} handleThemeChange={handleThemeChange} />
             <Container sx={{ paddingTop: "64px" }}>{children}</Container>
+            <Footer />
           </ThemeProvider>
-        </body>
-      </html>
+        </StoreProvider>
+      </body>
+    </html>
   );
 }

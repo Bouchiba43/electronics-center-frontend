@@ -80,10 +80,11 @@ export default function ProductDetails({ id }: ProductDetailsProp) {
   }
 
   // Helper Functions
+  // Helper Function
   const formatPrice = (price: number): string =>
-    new Intl.NumberFormat("en-IN", {
+    new Intl.NumberFormat("fr-TN", {
       style: "currency",
-      currency: "INR",
+      currency: "TND",
       minimumFractionDigits: 2,
     }).format(price);
 
@@ -92,9 +93,9 @@ export default function ProductDetails({ id }: ProductDetailsProp) {
 
   // Render product details
   return (
-    <Grid container spacing={6}>
+    <Grid container spacing={6} >
       {/* Product Image */}
-      <Grid item xs={12} sm={6}>
+      <Grid item xs={12} sm={6} className="mt-20">
         <img
           src={`/images/products/${extractImageName(product.pictureURL)}`}
           alt={`Image of ${product.name}`}
@@ -108,7 +109,7 @@ export default function ProductDetails({ id }: ProductDetailsProp) {
       </Grid>
 
       {/* Product Details */}
-      <Grid item xs={12} sm={6}>
+      <Grid item xs={12} sm={6} className="mt-20">
         <Typography variant="h3" gutterBottom>
           {product.name}
         </Typography>
@@ -116,6 +117,7 @@ export default function ProductDetails({ id }: ProductDetailsProp) {
         <Typography gutterBottom color="secondary" variant="h4">
           {formatPrice(product.price)}
         </Typography>
+
         <TableContainer>
           <Table>
             <TableBody>
