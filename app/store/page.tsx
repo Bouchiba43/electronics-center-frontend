@@ -1,12 +1,12 @@
 "use client";
 
 import React, { useState } from "react";
+import Catalog from "@/components/Catalog";
 import { Container, createTheme, CssBaseline, ThemeProvider } from "@mui/material";
 import Header from "@/components/Header";
-import HomePage from "@/components/Home";
 
 
-export default function Home() {
+export default function Store() {
   const [darkMode, setDarkMode] = useState(false);
   const paletteType = darkMode ? 'dark' : 'light';
 
@@ -24,7 +24,7 @@ export default function Home() {
       <CssBaseline>
         <Header darkMode={darkMode} handleThemeChange={handleThemeChange} />
         <Container sx={{ paddingTop: "64px" }}>
-          <HomePage />
+          <Catalog />
         </Container>
       </CssBaseline>
     </ThemeProvider>
