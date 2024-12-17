@@ -79,7 +79,6 @@ export default function ProductDetails({ id }: ProductDetailsProp) {
     );
   }
 
-  // Helper Functions
   // Helper Function
   const formatPrice = (price: number): string =>
     new Intl.NumberFormat("fr-TN", {
@@ -93,7 +92,7 @@ export default function ProductDetails({ id }: ProductDetailsProp) {
 
   // Render product details
   return (
-    <Grid container spacing={6} >
+    <Grid container spacing={6}>
       {/* Product Image */}
       <Grid item xs={12} sm={6} className="mt-20">
         <img

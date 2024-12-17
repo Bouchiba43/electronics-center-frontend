@@ -1,9 +1,11 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Badge, IconButton, Switch, Typography } from "@mui/material";
 import { ShoppingCart } from "@mui/icons-material";
+import Link from "next/link";
+import { useAppSelector } from "@/hooks/hooks";
 
 interface Props {
   darkMode: boolean;
@@ -22,6 +24,13 @@ export default function Header({ darkMode, handleThemeChange }: Props) {
     { title: "Login", path: "/login" },
     { title: "Register", path: "/register" },
   ];
+
+  const {basket} = useAppSelector(state=>state.basket);
+    console.log('Basket: ', basket);
+    useEffect(()=>{
+        console.log('Basket Items:', basket?.items);
+    }, [basket]);
+    const itemCount = basket?.items?.reduce((sum, item)=>sum+item.quantity, 0) || 0;
 
   return (
     <header className="fixed w-full z-50 bg-white dark:bg-gray-800 shadow-md mb-25">
@@ -50,12 +59,14 @@ export default function Header({ darkMode, handleThemeChange }: Props) {
 
         <div className="flex items-center space-x-4">
           <IconButton
-            onClick={() => router.push("/cart")}
+            onClick={() => router.push("/basket")}
             size="large"
             color="inherit"
           >
-            <Badge badgeContent="4" color="secondary">
-              <ShoppingCart />
+            <Badge badgeContent={itemCount} color="secondary">
+                <Link href="/basket">
+                    <ShoppingCart />
+                </Link>
             </Badge>
           </IconButton>
 
