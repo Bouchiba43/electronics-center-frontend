@@ -24,7 +24,7 @@ export default function Header({ darkMode, handleThemeChange }: Props) {
   ];
 
   return (
-    <header className="fixed w-full z-50 bg-white dark:bg-gray-800 shadow-md">
+    <header className="fixed w-full z-50 bg-white dark:bg-gray-800 shadow-md mb-25">
       <div className="flex justify-between items-center px-6 py-4">
         <div className="flex items-center space-x-4">
           <Typography
