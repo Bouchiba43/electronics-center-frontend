@@ -11,9 +11,11 @@ import {
   Box,
   CircularProgress,
 } from "@mui/material";
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { Product } from "@/models/product";
+import agent from "@/utils/agent";
+import Spinner from "@/components/Spinner";
+import NotFound from "@/components/errors/NotFound";
 
 interface ProductDetailsProp {
   id?: string; // Made optional to handle potential undefined cases
@@ -25,63 +27,22 @@ export default function ProductDetails({ id }: ProductDetailsProp) {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    // Comprehensive ID validation
-    if (!id || id.trim() === '') {
-      console.error("Product ID is invalid:", id);
-      setError("Invalid or missing product ID");
-      setLoading(false);
-      return;
-    }
-
-    const fetchProduct = async () => {
-      try {
-        // Ensure the ID is trimmed and valid before making the request
-        const cleanId = id.trim();
-        
-        const response = await axios.get<Product>(
-          `http://localhost:8081/api/products/${cleanId}`
-        );
-        
-        // Additional validation of response
-        if (!response.data) {
-          throw new Error("No product data received");
-        }
-        
-        setProduct(response.data);
-      } catch (err: any) {
-        console.error("Error fetching product details:", err);
-        
-        // More specific error handling
-        if (err.response) {
-          // The request was made and the server responded with a status code
-          // that falls out of the range of 2xx
-          if (err.response.status === 404) {
-            setError("Product not found");
-          } else {
-            setError("Failed to load product details. Please try again.");
-          }
-        } else if (err.request) {
-          // The request was made but no response was received
-          setError("No response from server. Please check your connection.");
-        } else {
-          // Something happened in setting up the request that triggered an Error
-          setError("An unexpected error occurred");
-        }
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchProduct();
-  }, [id]); // Dependency on id
+    id &&
+      agent.Store.details(parseInt(id))
+        .then((response) => setProduct(response))
+        .catch((error) => console.error(error))
+        .finally(() => setLoading(false));
+  }, [id]);
+  if (loading) return <Spinner message="Loading Product..." />;
+  if (!product) return <NotFound />;
 
   // Render loading state
   if (loading) {
     return (
-      <Box 
-        display="flex" 
-        justifyContent="center" 
-        alignItems="center" 
+      <Box
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
         height="100%"
       >
         <CircularProgress />
@@ -92,10 +53,10 @@ export default function ProductDetails({ id }: ProductDetailsProp) {
   // Render error state
   if (error) {
     return (
-      <Box 
-        display="flex" 
-        justifyContent="center" 
-        alignItems="center" 
+      <Box
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
         height="100%"
         color="error.main"
       >
@@ -107,10 +68,10 @@ export default function ProductDetails({ id }: ProductDetailsProp) {
   // Render product not found
   if (!product) {
     return (
-      <Box 
-        display="flex" 
-        justifyContent="center" 
-        alignItems="center" 
+      <Box
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
         height="100%"
       >
         <Typography variant="h6">No product found</Typography>
@@ -137,11 +98,11 @@ export default function ProductDetails({ id }: ProductDetailsProp) {
         <img
           src={`/images/products/${extractImageName(product.pictureURL)}`}
           alt={`Image of ${product.name}`}
-          style={{ 
-            width: "100%", 
-            maxHeight: "400px", 
+          style={{
+            width: "100%",
+            maxHeight: "400px",
             objectFit: "cover",
-            borderRadius: "8px"
+            borderRadius: "8px",
           }}
         />
       </Grid>

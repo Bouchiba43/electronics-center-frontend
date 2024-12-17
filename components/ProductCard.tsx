@@ -1,4 +1,5 @@
 import { Avatar, Button, Card, CardActions, CardContent, CardHeader, CardMedia, Typography } from "@mui/material";
+import Link from 'next/link';
 import { Product } from "@/models/product";
 
 interface Props {
@@ -46,7 +47,9 @@ export default function ProductCard({product}: Props){
         </CardContent>
         <CardActions>
           <Button size="small">Add to cart</Button>
-          <Button size="small">View</Button>
+          <Button component={Link} href={`/store/${product.id}`} size="small">
+          View
+        </Button>
         </CardActions>
         </Card>
     )
