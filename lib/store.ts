@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { basketSlice } from "@/lib/features/basket/basketSlice";
+import { accountSlice } from "@/components/auth/accountSlice";
 
 export const store = configureStore({
     reducer:{
-        basket: basketSlice.reducer
+        basket: basketSlice.reducer,
+        account: accountSlice.reducer
     }
 });
 

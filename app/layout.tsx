@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Container,
   createTheme,
@@ -12,6 +12,7 @@ import Header from "@/components/Header";
 import "./globals.css";
 import Footer from "@/components/Footer";
 import StoreProvider from "@/app/StoreProvider";
+import AppInitializer from "@/components/AppInitializer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,6 +31,10 @@ export default function RootLayout({
 }>) {
   const [darkMode, setDarkMode] = useState(false);
   const paletteType = darkMode ? "dark" : "light";
+
+
+  
+  
 
   const theme = createTheme({
     palette: {
@@ -52,8 +57,11 @@ export default function RootLayout({
         <StoreProvider>
           <ThemeProvider theme={theme}>
             <CssBaseline />
+            <AppInitializer />
             <Header darkMode={darkMode} handleThemeChange={handleThemeChange} />
-            <Container sx={{ paddingTop: "64px" }}>{children}</Container>
+            <Container maxWidth="xl" sx={{ padding: "25px" }}>
+              {children}
+            </Container>
             <Footer />
           </ThemeProvider>
         </StoreProvider>

@@ -30,6 +30,7 @@ export default function ProductCard({ product }: Props) {
     }
     return null;
   };
+  
   const formatPrice = (price: number): string =>
     new Intl.NumberFormat("fr-TN", {
       style: "currency",
@@ -75,6 +76,7 @@ export default function ProductCard({ product }: Props) {
         <Typography variant="body2" color="text.secondary">
           {product.productbrand} / {product.producttype}
         </Typography>
+
       </CardContent>
       <CardActions>
       <LoadingButton
